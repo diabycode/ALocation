@@ -1,0 +1,73 @@
+{% extends "alocation/generic-page.html" %}
+
+{% block head_content %}
+    <title>AlmamyLocation</title>
+
+    <style> 
+        table, td, tr, th {
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
+        td {
+            padding: 5px 10px;
+        }
+    </style>
+{% endblock %}
+
+
+{% block body_content %}
+    <nav>
+        <ul>
+            <li><a href="{% url 'renter:renters-list' %}">Locataires</a></li>
+            <li><a href="{% url 'local:locals-list' %}">Locaux</a></li>
+        </ul>
+    </nav>
+
+    <br><br>
+    <form method="GET">
+        <input type="text" name="search-query" value="{% if search_query %}{{ search_query }}{% endif%}" placeholder="nom, prénom, local">
+        <input type="submit" value="RECHERCHE">
+    </form>
+
+    <br><br>
+    <table>
+        <thead>
+            <tr>
+                <th>Nom</th>
+                <th>Prénom</th>
+                <th>Local(aux)</th>
+                <th>Téléphone</th>
+                <th>Adresse</th>
+                <th>Retard(s) sur paiement</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for renter in renters %}
+        
+                <tr>
+                    <td> {{ renter.last_name }} </td>
+                    <td> {{ renter.first_name }} </td>
+                    <td> 
+                        {% if renter.get_all_locals %}
+                            {% for l in renter.get_all_locals %} 
+                                {{ l.tag_name }},
+                            {% endfor %}
+                        {% else %}
+                            - 
+                        {% endif %} 
+                    </td>
+                    <td> {% if renter.phone %} {{ renter.phone }} {% else %} - {% endif %}  </td>
+                    <td> {% if renter.address %} {{ renter.address }} {% else %} - {% endif %} </td>
+                    <td> {{ renter.unpaid_payment_count }} </td>
+                    <td> <a href="{% url 'renter:renter-details' pk=renter.pk %}"> détails </a> </td>
+                </tr>
+
+            {% endfor  %}
+            
+        </tbody>
+    </table>
+{% endblock %}
+
+
+
+    

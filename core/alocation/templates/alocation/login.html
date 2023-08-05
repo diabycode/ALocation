@@ -1,0 +1,25 @@
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alocation/Login</title>
+</head>
+<body>
+
+    <h1>AlmamyLocation</h1>
+    <h3>Connectez-vous et accédez à l’interface</h3>
+
+    <form action="#" method="POST">
+        {% csrf_token %}
+        <p>{{ form.username }}</p>
+        <p>{{ form.password }}</p>
+
+        <input type="submit" value="Connexion">
+    </form>
+
+    
+</body>
+</html>
+

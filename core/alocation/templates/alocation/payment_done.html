@@ -1,0 +1,9 @@
+{% extends 'alocation/generic-page.html' %}
+
+{% block body_content %}
+<p>&#9989; Paiement effectué !</p>
+<p><a href="{% url 'renter:renter-details' pk=renter_id %}">retour au profil</a></p>
+
+{% endblock %}
+
+

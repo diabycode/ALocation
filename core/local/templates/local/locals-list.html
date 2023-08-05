@@ -1,0 +1,57 @@
+{% extends "alocation/generic-page.html" %}
+
+
+{% block head_content %}
+    <title>Alocation/Locaux</title>
+    <style> 
+        table, td, tr, th {
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
+        td {
+            padding: 5px 10px;
+        }
+    </style>
+{% endblock %}
+
+{% block body_content %}
+
+    <nav>
+        <ul>
+            <li><a href="{% url 'renter:renters-list' %}">Locataires</a></li>
+            <li><a href="{% url 'local:locals-list' %}">Locaux</a></li>
+        </ul>
+    </nav>
+
+    <br><br>
+    <form method="GET">
+        <input type="text" name="search-query" value="{% if search_query %}{{search_query}}{% endif %}" placeholder="étiquette, locataire actuel, adresse">
+        <input type="submit" value="RECHERCHE">
+    </form>
+
+    <br><br>
+    <table>
+        <thead>
+            <tr>
+                <th>Etiquette</th>
+                <th>Adresse</th>
+                <th>Locataire actuel</th>
+                <th>Prix (FCFA)</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for local in locals_list %}
+
+                <tr>
+                    <td> {{ local.tag_name }} </td>
+                    <td> {{ local.address }} </td>
+                    <td> {{ local.current_tenant.fullname }} </td>
+                    <td> {{ local.rent_price }} </td>
+                </tr>
+
+            {% endfor  %}
+            
+        </tbody>
+    </table>
+
+{% endblock %}
