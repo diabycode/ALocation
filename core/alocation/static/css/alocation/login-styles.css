@@ -1,0 +1,47 @@
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    overflow: hidden;
+}
+
+main {
+    width: 100%;
+    max-width: 395px;
+    padding: 10px;
+}
+
+h1 {
+    font-size: var(--extraTitle);
+    margin-bottom: 10px;
+}
+#login-form {
+    margin-top: 20px;
+}
+form input[type=text], form input[type=password] {
+    padding: 15px 10px;
+    width: 100%;
+    outline: none;
+    border: 1px solid var(--gray) ;
+    margin-bottom: 10px;
+}
+form input[type=text]:focus, form input[type=password]:focus {
+    border: 1px solid var(--accentBlue) ;
+} 
+form input[type=submit] {
+    padding: 10px 15px;
+    cursor: pointer;
+    background-color: var(--blackDark);
+    color: var(--white);
+    font-size: var(--normal);
+}
+.errorlist {
+    margin-bottom: 10px;
+}
+.errorlist li {
+    font-size: var(--min);
+    color: var(--accentRed);
+}
+

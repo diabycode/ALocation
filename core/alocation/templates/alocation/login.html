@@ -1,23 +1,38 @@
+{% load static %}
 
 <!DOCTYPE html>
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/alocation/reset.css' %}">
+    <link rel="stylesheet" href="{% static 'css/alocation/login-styles.css' %}">
+    
     <title>Alocation/Login</title>
 </head>
 <body>
 
-    <h1>AlmamyLocation</h1>
-    <h3>Connectez-vous et accédez à l’interface</h3>
+    <main>
+        <h1>AlmamyLocation</h1>
+        <p>Connectez-vous et accédez à l’interface</p>
 
-    <form action="#" method="POST">
-        {% csrf_token %}
-        <p>{{ form.username }}</p>
-        <p>{{ form.password }}</p>
+        <div id="login-form">
+            {% if form.errors %}
+                {% for error in form.errors.values %}
+                    {{ error }}
+                {% endfor %}
+            {% endif %}
 
-        <input type="submit" value="Connexion">
-    </form>
+            <form method="POST">
+                {% csrf_token %}
+                <p>{{ form.username }}</p>
+                <p>{{ form.password }}</p>
+    
+                <input type="submit" value="Connexion">
+            </form>
+        </div>
+
+    </main>
 
     
 </body>
