@@ -1,8 +1,17 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- base styles -->
+    <link rel="stylesheet" href="{% static 'css/alocation/reset.css' %}">
+
+    <!-- scripts -->
+    <script src="{% static 'js/alocation/main.js' %}" defer></script>
+
     {% block head_content %}
         <title>AlmamyLocation</title>
         
@@ -10,21 +19,23 @@
     {% endblock %}
 </head>
 <body>
-    <header>
-        <h1>
-            <a href="{% url 'renter:renters-list' %}">AlmamyLocation</a>
-        </h1>
-
-        <div>
-            <span class="today-date">{{ now_date }}</span>
-            <a href="{% url 'admin:login' %}" target="_blank">ADMINISTRER</a>
-            <a href="{% url 'logout-user' %}">Déconnexion</a>
-        </div>
-    </header>
-
-    {% block body_content %}
-        <!-- ..... -->
-    {% endblock %}
+    <main>
+        <header>
+            <h1>
+                <a href="{% url 'renter:renters-list' %}">AlmamyLocation</a>
+            </h1>
+    
+            <div>
+                <span class="today-date">{{ now_date }}</span>
+                <a href="{% url 'admin:login' %}" target="_blank" class="admin-panel-link">ADMINISTRER</a>
+                <a href="{% url 'logout-user' %}">Déconnexion</a>
+            </div>
+        </header>
+    
+        {% block body_content %}
+            <!-- ..... -->
+        {% endblock %}
+    </main>
 
 </body>
 </html>

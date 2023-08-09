@@ -10,6 +10,7 @@ class RenterListView(ListView, LoginRequiredMixin):
     context_object_name = "renters"
     template_name = "renter/renter-list.html"
     search_query = None
+    paginate_by = 10
 
     def dispatch(self, request, *args, **kwargs):
         if not request.user.is_authenticated:

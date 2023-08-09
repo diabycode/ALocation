@@ -13,6 +13,7 @@ class LocalsListView(ListView, LoginRequiredMixin):
     template_name = "local/locals-list.html"
     context_object_name = "locals_list"
     search_query = None
+    paginate_by = 10
 
     def dispatch(self, request, *args, **kwargs):
         if not request.user.is_authenticated:
