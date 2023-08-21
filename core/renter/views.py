@@ -1,7 +1,9 @@
-from django.views.generic import ListView, DetailView
+from django.views.generic import ListView, DetailView, DeleteView
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.shortcuts import redirect
 
 from .models import Renter
+from local.models import Local
 from alocation.settings import NOW_DATE_STR
 
 
@@ -10,11 +12,14 @@ class RenterListView(ListView, LoginRequiredMixin):
     context_object_name = "renters"
     template_name = "renter/renter-list.html"
     search_query = None
-    paginate_by = 10
+    paginate_by = 7
 
     def dispatch(self, request, *args, **kwargs):
         if not request.user.is_authenticated:
             return self.handle_no_permission()
+    
+        if not request.user.is_staff:
+            return redirect("not-staff-user")
         return super().dispatch(request, *args, **kwargs)
 
     def get(self, request, *args, **kwargs):
@@ -45,17 +50,26 @@ class RenterDetailView(DetailView, LoginRequiredMixin):
     def dispatch(self, request, *args, **kwargs):
         if not request.user.is_authenticated:
             return self.handle_no_permission()
+        
+        if not request.user.is_staff:
+            return redirect("not-staff-user")
         return super().dispatch(request, *args, **kwargs)
 
     def get_context_data(self, **kwargs):
         context_data = super().get_context_data(**kwargs)
         context_data["renter_locals"] = (self.get_object()).local_set.all()
+        context_data["locals_list"] = [l for l in Local.objects.all() if not l.is_currently_rented]
         context_data["renter_payments"] = (self.get_object()).payment_set.all()
         context_data["now_date"] = NOW_DATE_STR
         return context_data
 
 
-
+class RenterDeleteView(DeleteView):
+    model = Renter
+    template_name = "renter/renter__confirm_delete.html"
+    context_object_name = "renter"
+    extra_context = {'now_date': NOW_DATE_STR}
+    success_url = "/"
     
 
 

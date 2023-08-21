@@ -26,61 +26,68 @@
     </div>
 
     <div class="renter-list-table">
-        <table>
-            <thead>
-                <tr>
-                    <th>Nom</th>
-                    <th>Prénom</th>
-                    <th>Local(aux)</th>
-                    <th>Téléphone</th>
-                    <th>Adresse</th>
-                    <th>Retard(s) sur paiement</th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for renter in page_obj %}
-            
+        {% if page_obj %}
+            <table>
+                <thead>
                     <tr>
-                        <td> {{ renter.last_name }} </td>
-                        <td> {{ renter.first_name }} </td>
-                        <td> 
-                            {% if renter.get_all_locals %}
-                                {% for l in renter.get_all_locals %} 
-                                    {{ l.tag_name }},
-                                {% endfor %}
-                            {% else %}
-                                - 
-                            {% endif %} 
-                        </td>
-                        <td> {% if renter.phone %} {{ renter.phone }} {% else %} - {% endif %}  </td>
-                        <td> {% if renter.address %} {{ renter.address }} {% else %} - {% endif %} </td>
-                        <td> {{ renter.unpaid_payment_count }} </td>
-                        <td> <a href="{% url 'renter:renter-details' pk=renter.pk %}"> détails </a> </td>
+                        <th>N°</th>
+                        <th>Nom</th>
+                        <th>Prénom</th>
+                        <th>Local(aux)</th>
+                        <th>Téléphone</th>
+                        <th>Adresse</th>
+                        <th>Retard(s) sur paiement</th>
+                        <th></th>
                     </tr>
-    
-                {% endfor  %}
+                </thead>
+                <tbody>
+                    {% for renter in page_obj %}
                 
-            </tbody>
-        </table>
+                        <tr>
+                            <td> {{ forloop.counter }} </td>
+                            <td> {{ renter.last_name }} </td>
+                            <td> {{ renter.first_name }} </td>
+                            <td> 
+                                {% if renter.get_all_locals %}
+                                    {% for l in renter.get_all_locals %} 
+                                        {{ l.tag_name }},
+                                    {% endfor %}
+                                {% else %}
+                                    - 
+                                {% endif %} 
+                            </td>
+                            <td> {% if renter.phone %} {{ renter.phone }} {% else %} - {% endif %}  </td>
+                            <td> {% if renter.address %} {{ renter.address|truncatechars:15 }} {% else %} - {% endif %} </td>
+                            <td> {{ renter.unpaid_payment_count }} </td>
+                            <td> <a href="{% url 'renter:renter-details' pk=renter.pk %}"> détails </a> </td>
+                        </tr>
+        
+                    {% endfor  %}
+                    
+                </tbody>
+            </table>
 
-        <div class="pagination">
-            <span class="step-links">
-                {% if page_obj.has_previous %}
-                    <a href="?page=1">&laquo; premier</a>
-                    <a href="?page={{ page_obj.previous_page_number }}">arrière</a>
-                {% endif %}
-        
-                <span class="current">
-                    Page {{ page_obj.number }}/{{ page_obj.paginator.num_pages }}
+            <div class="pagination">
+                <span class="step-links">
+                    {% if page_obj.has_previous %}
+                        <a href="?page=1">&laquo; premier</a>
+                        <a href="?page={{ page_obj.previous_page_number }}">arrière</a>
+                    {% endif %}
+            
+                    <span class="current">
+                        Page {{ page_obj.number }}/{{ page_obj.paginator.num_pages }}
+                    </span>
+            
+                    {% if page_obj.has_next %}
+                        <a href="?page={{ page_obj.next_page_number }}">suivant</a>
+                        <a href="?page={{ page_obj.paginator.num_pages }}">dernier &raquo;</a>
+                    {% endif %}
                 </span>
-        
-                {% if page_obj.has_next %}
-                    <a href="?page={{ page_obj.next_page_number }}">suivant</a>
-                    <a href="?page={{ page_obj.paginator.num_pages }}">dernier &raquo;</a>
-                {% endif %}
-            </span>
-        </div> 
+            </div> 
+
+        {% else %}
+            <p>Aucune données</p>
+        {% endif %}
     </div>
 {% endblock %}
 

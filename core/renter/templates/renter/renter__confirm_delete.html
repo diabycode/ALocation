@@ -1,0 +1,16 @@
+{% extends "alocation/generic-page.html" %}
+{% load static %}
+
+{% block head_content %}
+    <title>ALocation | {{renter.fullname}}</title>
+{% endblock %}
+
+{% block body_content %}
+    <form method="POST">
+        {% csrf_token %}
+        <p>Supprimer le locataire "{{ renter.fullname }}"?</p>
+        <input type="submit" value="Confirmer">
+    </form>
+{% endblock %}
+
+
