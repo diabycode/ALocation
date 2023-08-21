@@ -26,8 +26,11 @@
             </h1>
     
             <div>
+                <span>{{ request.user.username.upper }}</span>
                 <span class="today-date">{{ now_date }}</span>
+                {% if request.user.is_staff %}
                 <a href="{% url 'admin:login' %}" target="_blank" class="admin-panel-link">ADMINISTRER</a>
+                {% endif %}
                 <a href="{% url 'logout-user' %}">Déconnexion</a>
             </div>
         </header>
