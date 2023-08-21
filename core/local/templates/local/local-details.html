@@ -1,0 +1,104 @@
+{% extends "alocation/generic-page.html" %}
+{% load static %}
+
+{% block head_content %}
+    <title>ALocation | local: {{local.tag_name}}</title>
+
+    <style>
+        table {
+            border-collapse: collapse;
+        }
+        table, th, td {
+            border: 1px solid;
+        }
+    </style>
+
+{% endblock %}
+
+{% block body_content %}
+
+    <div class="container">
+        <div>
+            <div class="profile-icon">
+                <svg width="87" height="87" viewBox="0 0 87 87" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <g clip-path="url(#clip0_207_2)">
+                    <path d="M44.7992 0.307303C44.3959 0.105222 43.9511 0 43.5 0C43.0489 0 42.6041 0.105222 42.2008 0.307303L7.4008 17.7073L9.9992 22.8925L43.5 6.1479L77.0008 22.8983L79.5992 17.7131L44.7992 0.313103V0.307303ZM81.2 34.7999H87V28.9999H0V34.7999H5.8V81.1999H0V86.9999H23.2V46.3999H52.2V86.9999H87V81.1999H81.2V34.7999Z" fill="#6C6C6C"/>
+                    <path d="M46.4 87V52.2H29V87H46.4Z" fill="#6C6C6C"/>
+                    </g>
+                    <defs>
+                    <clipPath id="clip0_207_2">
+                    <rect width="87" height="87" fill="white"/>
+                    </clipPath>
+                    </defs>
+                </svg>
+            </div>
+            <div>
+                <h3>{{ local.tag_name }}</h3>
+                <span>{{ local.rent_price }} FCFA</span>
+                <p>{{ local.current_tenant.fullname }}</p>
+                <p>{{ local.address }}</p>
+            </div>
+        </div>
+    
+        <div>
+            <div class="payments-table">
+                <h4>Paiements récents</h4>
+                <!-- <br><br> -->
+                {% if payments_list %}
+
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Locataire</th>
+                                <th>Paiement du</th>
+                                <th>Dernier délais</th>
+                                <th>Etat</th>
+                                <th>Paiement effectué le<th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for payment in payments_list %}
+                                <!-- 
+                                    renter
+                                    local
+                                    created_at
+                                    paid_at
+                                    paid
+                                -->
+                                <tr>
+                                    <td> {{ payment.local }} </td>
+                                    <td> {{ payment.created_at }} </td>
+                                    <td> {{ payment.due_date }} </td>
+                                    <td><span class="{% if payment.paid %} paid {% else %} unpaid {% endif %}">{% if payment.paid %} payé {% else %} impayé {% endif %}</span></td>
+                                    <td> {% if payment.paid_at %} {{ payment.paid_at }} {% else %} - {% endif %} </td>
+                                </tr>
+            
+                            {% endfor  %}
+                        </tbody>
+                    </table>
+
+                {% else %}
+                    <p>Aucun historique de paiement</p>
+                {% endif %}
+            </div>
+            <div class="process-payment">
+                <h4>Régler un paiement</h4>
+                <form action="{% url 'make_payment' %}" method="POST">
+                    {% csrf_token %}
+                    <select name="payment" id="payment-select">
+                        <option selected value="#">Paiements non réglés</option>
+                        {% for payment in payments_list %}
+                        {% if not payment.paid %}
+                        <option value="{{ payment.pk }}">Paiement --- {{ payment.created_at_str }}</option>
+                        {% endif %}
+                        {% endfor %}
+                    </select>
+                    <input type="submit" value="Payer">
+                </form>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+    

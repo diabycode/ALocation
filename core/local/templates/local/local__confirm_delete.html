@@ -1,0 +1,16 @@
+{% extends "alocation/generic-page.html" %}
+{% load static %}
+
+{% block head_content %}
+    <title>ALocation | {{local.tag_name}}</title>
+{% endblock %}
+
+{% block body_content %}
+    <form method="POST">
+        {% csrf_token %}
+        <p>Supprimer le local "{{ local.tag_name }}"?</p>
+        <input type="submit" value="Confirmer">
+    </form>
+{% endblock %}
+
+

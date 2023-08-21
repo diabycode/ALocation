@@ -27,9 +27,11 @@
         <table>
             <thead>
                 <tr>
+                    <th>N°</th>
                     <th>Etiquette</th>
                     <th>Adresse</th>
                     <th>Locataire actuel</th>
+                    <th>Loué depuis</th>
                     <th>Prix (FCFA)</th>
                 </tr>
             </thead>
@@ -37,9 +39,11 @@
                 {% for local in page_obj %}
     
                     <tr>
+                        <td> {{ forloop.counter }} </td>
                         <td> {{ local.tag_name }} </td>
                         <td> {{ local.address }} </td>
-                        <td> {{ local.current_tenant.fullname }} </td>
+                        <td> {% if local.current_tenant %} {{ local.current_tenant.fullname }} {% else %} - {% endif %} </td>
+                        <td> {% if local.rented_since %} {{ local.rented_since }} {% else %} - {% endif %}  </td>
                         <td> {{ local.rent_price }} </td>
                     </tr>
     
