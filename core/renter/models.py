@@ -31,6 +31,10 @@ class Payment(models.Model):
     @property
     def amount(self):
         return self.local.rent_price
+    
+    @property
+    def created_at_str(self):
+        return self.created_at.strftime("%d/%m/%Y")
 
 
 class Renter(models.Model):
@@ -66,11 +70,18 @@ class Renter(models.Model):
         if not local.pk:
             raise local.DoesNotExist
         
-        if local.current_tenant:
+        if local.is_currently_rented:
             raise HasAlreadyAssignedTenant("Un locataire est déjà assigné à ce local !")
         
+        # local assignment
         self.local_set.add(local)
+        local.rented_since = datetime.date.today()
+        local.save()
         print(f"Local '{local.tag_name}' assigné au locataire '{self.fullname}'.")
+
+        # Generate payment
+        self.generate_payment(local=local)
+
     
     def get_all_locals(self):
         return self.local_set.all()
