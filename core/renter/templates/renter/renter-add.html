@@ -1,0 +1,28 @@
+{% extends 'alocation/generic-page.html' %}
+
+{% block head_content %}
+    <title>ALocation | renter/add</title>
+{% endblock %}
+
+{% block body_content %}
+    <h2>Ajouter un nouveau locataire</h2>
+    <p>Veuillez renseigner le formulaire avec les informations du locataire</p>
+    <br>
+
+    <form action="#" method="POST">
+        {% csrf_token %}
+        <p>{{ form.first_name }}</p>
+        <p>{{ form.last_name }}</p>
+        <p>{{ form.email }}</p>
+        <p>{{ form.phone }}</p>
+        <p>{{ form.address }}</p>
+        <p>{{ form.address_2 }}</p>
+
+        <br>
+        <p>Au cas où ce locataire louerait déjà un ou plusieurs locaux, vous pourrez les lui assigner directement  avec le champ en dessous.</p>
+        <p>{{ form.assigned_locals }}</p>
+
+        <input type="submit" value="Enrégistrer">
+    </form>
+{% endblock %}
+

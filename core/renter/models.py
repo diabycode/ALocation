@@ -41,8 +41,8 @@ class Renter(models.Model):
     first_name = models.CharField(max_length=130)
     last_name = models.CharField(max_length=130)
     email = models.EmailField(max_length=254, unique=True, blank=True, null=True)
-    phone = models.CharField(max_length=130, unique=True, blank=True, null=True)
-    address = models.CharField(max_length=130, blank=True, null=True)
+    phone = models.CharField(max_length=130, unique=True, blank=False, null=True)
+    address = models.CharField(max_length=130, blank=False, null=True)
 
     added_at = models.DateTimeField(auto_now_add=True, blank=True, null=True)
     # payment_date = models.DateField(null=True)

@@ -1,10 +1,12 @@
-from django.views.generic import ListView, DetailView, DeleteView
+from django.views.generic import ListView, DetailView, DeleteView, CreateView, UpdateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import redirect
+from django.urls import reverse_lazy, reverse
 
 from .models import Renter
 from local.models import Local
 from alocation.settings import NOW_DATE_STR
+from .forms import RenterForm 
 
 
 class RenterListView(ListView, LoginRequiredMixin):
@@ -72,5 +74,20 @@ class RenterDeleteView(DeleteView):
     success_url = "/"
     
 
+class RenterCreateView(CreateView):
+    model = Renter
+    template_name = "renter/renter-add.html"
+    form_class = RenterForm
+    success_url = reverse_lazy("renter:renters-list")
+    extra_context = {'now_date': NOW_DATE_STR}
 
 
+class RenterEditView(UpdateView):
+    model = Renter
+    form_class = RenterForm
+    template_name = "renter/renter-edit.html"
+    extra_context = {'now_date': NOW_DATE_STR}
+
+    def get_success_url(self) -> str:
+        success_url = reverse("renter:renter-details", kwargs={'pk': (self.get_object()).pk}) 
+        return success_url

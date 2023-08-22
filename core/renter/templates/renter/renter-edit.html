@@ -1,0 +1,23 @@
+{% extends 'alocation/generic-page.html' %}
+
+{% block head_content %}
+    <title>ALocation | renter/edit</title>
+{% endblock %}
+
+{% block body_content %}
+    <h2>Modifier un locataire</h2>
+    <p>Veuillez renseigner le formulaire avec les informations du locataire</p>
+    <br>
+
+    <form action="#" method="POST">
+        {% csrf_token %}
+        <p>{{ form.first_name }}</p>
+        <p>{{ form.last_name }}</p>
+        <p>{{ form.email }}</p>
+        <p>{{ form.phone }}</p>
+        <p>{{ form.address }}</p>
+
+        <input type="submit" value="Enrégistrer">
+    </form>
+{% endblock %}
+
