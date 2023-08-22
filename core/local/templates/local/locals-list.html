@@ -23,6 +23,13 @@
         </form>
     </div>
 
+    <div class="action-bar">
+        <a href="#">Ajouter</a>
+        <a href="#">Exporter</a>
+        <a href="#">Filtrer</a>
+        <a href="#">Trier</a>
+    </div>
+
     <div class="renter-list-table">
         <table>
             <thead>
@@ -33,6 +40,7 @@
                     <th>Locataire actuel</th>
                     <th>Loué depuis</th>
                     <th>Prix (FCFA)</th>
+                    <th></th>
                 </tr>
             </thead>
             <tbody>
@@ -41,10 +49,15 @@
                     <tr>
                         <td> {{ forloop.counter }} </td>
                         <td> {{ local.tag_name }} </td>
-                        <td> {{ local.address }} </td>
+                        <td> {{ local.address|truncatechars:15 }} </td>
                         <td> {% if local.current_tenant %} {{ local.current_tenant.fullname }} {% else %} - {% endif %} </td>
                         <td> {% if local.rented_since %} {{ local.rented_since }} {% else %} - {% endif %}  </td>
                         <td> {{ local.rent_price }} </td>
+                        <td>
+                            <a href="{% url 'local:edit' pk=local.pk %}" style="color: blue;"> modifier </a><br>
+                            <a href="{% url 'local:local-details' pk=local.pk %}" style="color: blue;"> détails </a><br>
+                            <a href="{% url 'local:delete' pk=local.pk %}" style="color: red;"> supprimer </a>
+                        </td>
                     </tr>
     
                 {% endfor  %}

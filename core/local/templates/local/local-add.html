@@ -1,0 +1,21 @@
+{% extends 'alocation/generic-page.html' %}
+
+{% block head_content %}
+    <title>ALocation | local/add</title>
+{% endblock %}
+
+{% block body_content %}
+    <h2>Ajouter un nouveau local</h2>
+    <p>Veuillez renseigner le formulaire avec les informations du local</p>
+    <br>
+
+    <form action="#" method="POST">
+        {% csrf_token %}
+        <p>{{ form.tag_name }}</p>
+        <p>{{ form.address }}</p>
+        <p>{{ form.rent_price }}</p>
+
+        <input type="submit" value="Enrégistrer">
+    </form>
+{% endblock %}
+

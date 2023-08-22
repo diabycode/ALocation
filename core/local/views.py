@@ -1,13 +1,14 @@
 from typing import Any, Dict
-from django.http import Http404, HttpRequest, HttpResponse
-from django.views.generic import ListView, DetailView, DeleteView
+from django.http import Http404
+from django.views.generic import ListView, DetailView, DeleteView, CreateView, UpdateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import redirect
-from django.shortcuts import render
+from django.urls import reverse_lazy, reverse
 
 from .models import Local
 from renter.models import Renter
 from alocation.settings import NOW_DATE_STR
+from .forms import LocalForm
 
 
 class LocalsListView(ListView, LoginRequiredMixin):
@@ -62,7 +63,28 @@ class LocalDeleteView(DeleteView):
     template_name = "local/local__confirm_delete.html"
     context_object_name = "local"
     extra_context = {'now_date': NOW_DATE_STR}
-    success_url = "/"
+    
+    def get_success_url(self) -> str:
+        return reverse("local:locals-list")
+
+
+class LocalAddView(CreateView):
+    model = Local
+    template_name = "local/local-add.html"
+    form_class = LocalForm
+    success_url = reverse_lazy("local:locals-list")
+    extra_context = {'now_date': NOW_DATE_STR}
+
+
+class LocalEditView(UpdateView):
+    model = Local
+    form_class = LocalForm
+    template_name = "local/local-edit.html"
+    extra_context = {'now_date': NOW_DATE_STR}
+
+    def get_success_url(self) -> str:
+        success_url = reverse("local:local-details", kwargs={'pk': (self.get_object()).pk}) 
+        return success_url
 
 
 """
