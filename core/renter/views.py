@@ -71,7 +71,9 @@ class RenterDeleteView(DeleteView):
     template_name = "renter/renter__confirm_delete.html"
     context_object_name = "renter"
     extra_context = {'now_date': NOW_DATE_STR}
-    success_url = "/"
+    
+    def get_success_url(self) -> str:
+        return reverse("renter:renter-list")
     
 
 class RenterCreateView(CreateView):

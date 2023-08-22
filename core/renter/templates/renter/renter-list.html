@@ -25,6 +25,23 @@
         </form>
     </div>
 
+    <div class="action-bar" style="display: flex; justify-content: space-between;">
+        <div>
+            <a style="color: blue;" href="{% url 'renter:add' %}">Ajouter</a>
+            <a style="color: blue;" href="#">Exporter</a>
+        </div>
+        <div>
+            <a style="color: blue;" href="#">Filtrer</a>
+            <a style="color: blue;" href="#">Trier</a>
+            <select name="sort-by" id="sort-by">
+                <option value="" selected>aucun</option>
+                <option value="last_name">nom</option>
+                <option value="first_name">prénom</option>
+                <option value="address">adresse</option>
+            </select>
+        </div>
+    </div><br><br>
+
     <div class="renter-list-table">
         {% if page_obj %}
             <table>
@@ -59,7 +76,11 @@
                             <td> {% if renter.phone %} {{ renter.phone }} {% else %} - {% endif %}  </td>
                             <td> {% if renter.address %} {{ renter.address|truncatechars:15 }} {% else %} - {% endif %} </td>
                             <td> {{ renter.unpaid_payment_count }} </td>
-                            <td> <a href="{% url 'renter:renter-details' pk=renter.pk %}"> détails </a> </td>
+                            <td>
+                                <a href="{% url 'renter:edit' pk=renter.pk %}" style="color: blue;"> modifier </a><br>
+                                <a href="{% url 'renter:renter-details' pk=renter.pk %}" style="color: blue;"> détails </a><br>
+                                <a href="{% url 'renter:delete' pk=renter.pk %}" style="color: red;"> supprimer </a>
+                            </td>
                         </tr>
         
                     {% endfor  %}
