@@ -9,6 +9,7 @@ from alocation.settings import NOW_DATE_STR
 from .forms import RenterForm 
 
 
+
 class RenterListView(ListView, LoginRequiredMixin):
     queryset = Renter.objects.order_by("-added_at")
     context_object_name = "renters"
@@ -73,7 +74,7 @@ class RenterDeleteView(DeleteView):
     extra_context = {'now_date': NOW_DATE_STR}
     
     def get_success_url(self) -> str:
-        return reverse("renter:renter-list")
+        return reverse("renter:renters-list")
     
 
 class RenterCreateView(CreateView):
