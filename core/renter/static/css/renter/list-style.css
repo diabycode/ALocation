@@ -73,6 +73,9 @@ table {
     padding: 10px 10px;
     white-space: nowrap;
 }
+.list-table tbody tr:hover {
+    background-color: var(--tooLightGray);
+}
 .list-table tbody tr td {
     border-bottom: 1px solid var(--lightGray);
     font-size: var(--min);

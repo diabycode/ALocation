@@ -5,7 +5,7 @@
     <title>ALocation : {{ renter.fullname }}</title>
 
     <!-- styles -->
-    <link rel="stylesheet" href="{% static 'css/renter/renter-details-style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/renter/details-style.css' %}">
 
 {% endblock %}
 
@@ -20,7 +20,7 @@
                     <path fill-rule="evenodd" clip-rule="evenodd" d="M41.266 85.466C18.5986 84.5565 0.5 65.8905 0.5 43C0.5 19.5273 19.5273 0.5 43 0.5C66.4727 0.5 85.5 19.5273 85.5 43C85.5 66.4728 66.4727 85.5 43 85.5C42.8059 85.5013 42.6118 85.5013 42.4178 85.5C42.0331 85.5 41.6485 85.4873 41.266 85.466ZM15.7278 69.8175C15.41 68.905 15.3018 67.9326 15.4113 66.9725C15.5208 66.0125 15.8451 65.0894 16.3601 64.2718C16.8751 63.4542 17.5677 62.7632 18.3864 62.2499C19.2051 61.7366 20.1288 61.4143 21.0891 61.3069C37.6556 59.473 48.4464 59.6388 64.9321 61.3451C65.8937 61.4453 66.8197 61.7635 67.6397 62.2756C68.4597 62.7878 69.152 63.4803 69.664 64.3004C70.1759 65.1205 70.4939 66.0466 70.5938 67.0082C70.6937 67.9698 70.5728 68.9416 70.2404 69.8494C77.3059 62.7007 81.2627 53.0511 81.25 43C81.25 21.8754 64.1246 4.75 43 4.75C21.8754 4.75 4.75 21.8754 4.75 43C4.75 53.4465 8.93838 62.9155 15.7278 69.8175Z" fill="#6C6C6C"/>
                 </svg>
             </div>
-            <div class="renter-details">
+            <div class="details">
                 <h3>{{ renter.fullname }}</h3>
                 <div>
                     {% if renter_locals %}
@@ -41,9 +41,7 @@
         <div>
             <div class="payments-table">
                 <h4>Paiements récents</h4>
-                <!-- <br><br> -->
                 {% if renter_payments %}
-
                     <table>
                         <thead>
                             <tr>
@@ -74,7 +72,6 @@
                             {% endfor  %}
                         </tbody>
                     </table>
-
                 {% else %}
                     <p>Aucun historique de paiement</p>
                 {% endif %}
@@ -94,12 +91,11 @@
                     <input type="submit" value="Payer">
                 </form>
             </div>
-            <br><br>
             <div class="assign-local">
                 <h4>Assigner des locaux</h4>
                 <form action="{% url 'local:assign-local-to-renter' %}" method="POST">
                     {% csrf_token %}
-                    <select style="width: 200px; height: 120px;" name="locals_selected" id="locals-select" multiple>
+                    <select name="locals_selected" id="locals-select" multiple>
                         <!-- <option selected value="#">Paiements non réglés</option> -->
                         {% for local in locals_list %}
                             <option value="{{ local.pk }}">{{ local.tag_name }}__ {{ local.rent_price }}f</option>

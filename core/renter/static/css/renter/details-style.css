@@ -23,6 +23,9 @@
 
 
 /* payment form */
+.process-payment {
+    margin-bottom: 2rem;
+}
 .process-payment form select:focus {
     border-bottom-color: var(--accentBlue);
     color: var(--accentBlue);
@@ -36,11 +39,11 @@
     cursor: pointer;
     margin-right: 1rem;
 }
-.process-payment form input[type=submit]:hover {
+form input[type=submit]:hover {
     background-color: var(--white);
     color: var(--blackDark);
 }
-.process-payment form input[type=submit] {
+form input[type=submit] {
     background-color: var(--accentBlue);
     color: var(--white);
     font-weight: 600;
@@ -59,16 +62,16 @@
     width: 60px;
     height: 60px;
 }
-.renter-details h3 {
+.details h3 {
     font-size: var(--extraTitle);
     font-weight: 600;
     white-space: nowrap;
 }
-.renter-details div > span {
+.details span {
     font-size: var(--subtitle);
     font-weight: 500;
 }
-.renter-details div {
+.details div {
     margin-bottom: 1rem;
 }
 
@@ -114,4 +117,12 @@ td span.unpaid {
 .payments-table thead {
     background-color: var(--lightGray);
     text-align: left;
+}
+form select {
+    height: auto;
+    width: 50%;
+    max-width: 300px;
+    outline: none;
+    border: 1px solid var(--gray);
+    display: inline-block;
 }
