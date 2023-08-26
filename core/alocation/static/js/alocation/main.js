@@ -19,3 +19,9 @@ window.addEventListener("load", (e) => {
     }
 })
 
+// pagination
+document.querySelectorAll(".pagination div.disable a").forEach((element) => {
+    element.addEventListener("click", (e) => {
+        e.preventDefault()
+    })
+})
