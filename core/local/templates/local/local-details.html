@@ -4,14 +4,8 @@
 {% block head_content %}
     <title>ALocation | local: {{local.tag_name}}</title>
 
-    <style>
-        table {
-            border-collapse: collapse;
-        }
-        table, th, td {
-            border: 1px solid;
-        }
-    </style>
+    <!-- styles -->
+    <link rel="stylesheet" href="{% static 'css/renter/details-style.css' %}">
 
 {% endblock %}
 
@@ -32,7 +26,7 @@
                     </defs>
                 </svg>
             </div>
-            <div>
+            <div class="details">
                 <h3>{{ local.tag_name }}</h3>
                 <span>{{ local.rent_price }} FCFA</span>
                 <p>{{ local.current_tenant.fullname }}</p>
@@ -43,7 +37,6 @@
         <div>
             <div class="payments-table">
                 <h4>Paiements récents</h4>
-                <!-- <br><br> -->
                 {% if payments_list %}
 
                     <table>
@@ -66,7 +59,7 @@
                                     paid
                                 -->
                                 <tr>
-                                    <td> {{ payment.local }} </td>
+                                    <td> {{ payment.renter }} </td>
                                     <td> {{ payment.created_at }} </td>
                                     <td> {{ payment.due_date }} </td>
                                     <td><span class="{% if payment.paid %} paid {% else %} unpaid {% endif %}">{% if payment.paid %} payé {% else %} impayé {% endif %}</span></td>
