@@ -1,21 +1,35 @@
 {% extends 'alocation/generic-page.html' %}
+{% load static %}
 
 {% block head_content %}
     <title>ALocation | local/add</title>
+
+    <link rel="stylesheet" href="{% static 'css/local/model-form.css' %}">
 {% endblock %}
 
 {% block body_content %}
-    <h2>Ajouter un nouveau local</h2>
-    <p>Veuillez renseigner le formulaire avec les informations du local</p>
-    <br>
+    <div class="model-form">
+        <h3>Ajouter un nouveau local</h3>
+        <p>Veuillez renseigner le formulaire avec les informations du local</p>
 
-    <form action="#" method="POST">
-        {% csrf_token %}
-        <p>{{ form.tag_name }}</p>
-        <p>{{ form.address }}</p>
-        <p>{{ form.rent_price }}</p>
+        <div>
+            <form method="POST">
+                {% csrf_token %}
+                <div class="fields">
+                    <div>
+                        <p>{{ form.tag_name }}</p>
+                        <p>{{ form.rent_price }}</p>
+                    </div>
+                    <div>
+                        <p>{{ form.address }}</p>
 
-        <input type="submit" value="Enrégistrer">
-    </form>
+                    </div>
+                </div>
+        
+                <input type="submit" value="Enrégistrer" class="blue">
+            </form>
+        </div>
+    </div>
+    <br><br>
 {% endblock %}
 

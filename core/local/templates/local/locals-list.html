@@ -19,13 +19,13 @@
     <div class="search-form">
         <form method="GET">
             <input type="text" name="search-query" value="{% if search_query %}{{search_query}}{% endif %}" placeholder="étiquette, locataire actuel, adresse">
-            <input type="submit" value="RECHERCHE">
+            <input type="submit" value="RECHERCHE" class="blue">
         </form>
     </div>
 
     <div class="action-bar">
         <div>
-            <a href="{% url 'renter:add' %}">
+            <a href="{% url 'local:add' %}">
                 <svg width="25" height="23" viewBox="0 0 25 23" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M19.7916 12.4583H13.5416V18.2083H11.4583V12.4583H5.20831V10.5416H11.4583V4.79163H13.5416V10.5416H19.7916V12.4583Z" fill="#F9F9F9"/>
                 </svg>
