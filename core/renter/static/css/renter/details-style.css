@@ -15,12 +15,6 @@
 .container > div:last-child {
     flex-shrink: 3;
 }
-.container > div h4 {
-    font-weight: 500;
-    font-size: var(--subtitle);
-    margin-bottom: 1rem;
-}
-
 
 /* payment form */
 .process-payment {
@@ -39,18 +33,6 @@
     cursor: pointer;
     margin-right: 1rem;
 }
-form input[type=submit]:hover {
-    background-color: var(--white);
-    color: var(--blackDark);
-}
-form input[type=submit] {
-    background-color: var(--accentBlue);
-    color: var(--white);
-    font-weight: 600;
-    padding: 5px 10px;
-    border: none;
-    cursor: pointer;
-}
 
 
 /* profile */
@@ -62,11 +44,6 @@ form input[type=submit] {
     width: 60px;
     height: 60px;
 }
-.details h3 {
-    font-size: var(--extraTitle);
-    font-weight: 600;
-    white-space: nowrap;
-}
 .details span {
     font-size: var(--subtitle);
     font-weight: 500;
@@ -75,7 +52,9 @@ form input[type=submit] {
     margin-bottom: 1rem;
 }
 
-/*-------- payments table */
+
+/*--- payments table */
+
 td span.paid, td span.unpaid {
     background-color: var(--accentBlue);
     color: var(--white);
@@ -84,7 +63,6 @@ td span.paid, td span.unpaid {
 }
 td span.unpaid {
     background-color: var(--accentRed);
-    
 }
 .payments-table::-webkit-scrollbar {
     display: none;
@@ -95,7 +73,6 @@ td span.unpaid {
     scrollbar-width: none;  /* Firefox */
     margin-bottom: 2rem;
     /* background-color: green; */
-
 }
 .payments-table table {
     border-spacing: 0;
@@ -112,17 +89,8 @@ td span.unpaid {
 .payments-table tbody tr td {
     border-bottom: 1px solid var(--lightGray);
     font-size: var(--min);
-    
 }
 .payments-table thead {
     background-color: var(--lightGray);
     text-align: left;
-}
-form select {
-    height: auto;
-    width: 50%;
-    max-width: 300px;
-    outline: none;
-    border: 1px solid var(--gray);
-    display: inline-block;
 }

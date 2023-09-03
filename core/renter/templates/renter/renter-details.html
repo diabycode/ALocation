@@ -88,21 +88,21 @@
                         {% endif %}
                         {% endfor %}
                     </select>
-                    <input type="submit" value="Payer">
+                    <input type="submit" value="Payer" class="blue">
                 </form>
             </div>
             <div class="assign-local">
                 <h4>Assigner des locaux</h4>
                 <form action="{% url 'local:assign-local-to-renter' %}" method="POST">
                     {% csrf_token %}
-                    <select name="locals_selected" id="locals-select" multiple>
+                    <select name="locals_selected" id="locals-select" multiple class="multiple-select">
                         <!-- <option selected value="#">Paiements non réglés</option> -->
                         {% for local in locals_list %}
                             <option value="{{ local.pk }}">{{ local.tag_name }}__ {{ local.rent_price }}f</option>
                         {% endfor %}
                     </select>
                     <input type="hidden" name="renter_id" value="{{ renter.pk }}">
-                    <input type="submit" value="Assigner">
+                    <input type="submit" value="Assigner" class="blue">
                 </form>
             </div>
         </div>

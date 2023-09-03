@@ -1,28 +1,44 @@
 {% extends 'alocation/generic-page.html' %}
+{% load static %}
 
 {% block head_content %}
     <title>ALocation | renter/add</title>
+
+    <link rel="stylesheet" href="{% static 'css/local/model-form.css' %}">
 {% endblock %}
 
 {% block body_content %}
-    <h2>Ajouter un nouveau locataire</h2>
-    <p>Veuillez renseigner le formulaire avec les informations du locataire</p>
+    <div class="model-form">
+        <h3>Ajouter un nouveau locataire</h3>
+        <p>Veuillez renseigner le formulaire avec les informations du locataire</p>
+
+        <div>
+            <form method="POST">
+                {% csrf_token %}
+                <div class="fields">
+                    <div>
+                        <p>{{ form.first_name }}</p>
+                        <p>{{ form.last_name }}</p>
+                    </div>
+                    <div>
+                        <p>{{ form.email }}</p>
+                        <p>{{ form.phone }}</p>
+                    </div>
+                    <div>
+                        <p>{{ form.address }}</p>
+                        <p>{{ form.address_2 }}</p>
+                    </div>
+            
+                    <br>
+                    <p><span>Au cas où ce locataire louerait déjà un ou plusieurs locaux, vous pourrez les lui assigner directement  avec le champ en dessous.</span>
+                        {{ form.assigned_locals }}</p>
+                </div>
+    
+                <input type="submit" value="Enrégistrer" class="blue">
+            </form>
+        </div>
+    </div>
     <br>
-
-    <form action="#" method="POST">
-        {% csrf_token %}
-        <p>{{ form.first_name }}</p>
-        <p>{{ form.last_name }}</p>
-        <p>{{ form.email }}</p>
-        <p>{{ form.phone }}</p>
-        <p>{{ form.address }}</p>
-        <p>{{ form.address_2 }}</p>
-
-        <br>
-        <p>Au cas où ce locataire louerait déjà un ou plusieurs locaux, vous pourrez les lui assigner directement  avec le champ en dessous.</p>
-        <p>{{ form.assigned_locals }}</p>
-
-        <input type="submit" value="Enrégistrer">
-    </form>
+    <br>
 {% endblock %}
 

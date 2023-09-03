@@ -34,18 +34,6 @@ nav ul li.selected a {
     max-width: 350px;
     margin-right: 15px;
 }
-.search-form input[type=submit]:hover {
-    background-color: var(--white);
-    color: var(--blackDark);
-}
-.search-form input[type=submit] {
-    background-color: var(--accentBlue);
-    color: var(--white);
-    font-weight: 600;
-    padding: 5px 10px;
-    border: none;
-    cursor: pointer;
-}
 
 
 /* table */

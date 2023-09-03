@@ -20,7 +20,10 @@ class RenterForm(forms.ModelForm):
     )
     assigned_locals = forms.MultipleChoiceField(
         choices=unassigned_locals,
-        required=False
+        required=False,
+        widget=forms.SelectMultiple(
+            attrs={'class': 'multiple-select'}
+        )
     )
 
     class Meta:
