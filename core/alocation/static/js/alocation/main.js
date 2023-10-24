@@ -1,15 +1,14 @@
 
-// navbar focus
-window.addEventListener("load", (e) => {
-    if (window.location.href.includes("renters/")) {
-        document.querySelector("nav ul li").classList.toggle("selected")
-    } else if (window.location.href.includes("locals/")) {
-        document.querySelector("nav ul li:last-child").classList.toggle("selected")
-    }
+// pagination
+document.querySelectorAll(".pagination div.disable a").forEach((element) => {
+    element.addEventListener("click", (e) => {
+        e.preventDefault()
+    })
 })
 
+
 // search input focus
-window.addEventListener("load", (e) => {
+const FocusSearchInput = () => {
     const searchInput = document.querySelector("input[name=search-query]")
     if ( searchInput.value !== "") {
         const end = searchInput.value.length
@@ -17,11 +16,28 @@ window.addEventListener("load", (e) => {
         searchInput.setSelectionRange(end, end)
         searchInput.focus()
     }
+}
+
+
+// navbar focus
+const navbarFocus = (e) => {
+    if (window.location.href.includes("renters/")) {
+        document.querySelector("nav ul li").classList.toggle("selected")
+    } else if (window.location.href.includes("locals/")) {
+        document.querySelector("nav ul li:last-child").classList.toggle("selected")
+    }
+}
+
+
+// On page is loaded
+window.addEventListener("load", () => {
+    FocusSearchInput()
+    navbarFocus()
 })
 
-// pagination
-document.querySelectorAll(".pagination div.disable a").forEach((element) => {
-    element.addEventListener("click", (e) => {
-        e.preventDefault()
-    })
+
+// user dropdown
+document.querySelector(".profile-head").addEventListener("click", () => {
+    document.querySelector("header .dropdown").classList.toggle("show")
 })
+

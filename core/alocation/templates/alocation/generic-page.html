@@ -10,26 +10,36 @@
     <link rel="stylesheet" href="{% static 'css/alocation/reset.css' %}">
 
     <!-- scripts -->
-    <script src="{% static 'js/alocation/main.js' %}" defer></script>
+    <script src="{% static 'js/alocation/main.js' %}" type="module" defer></script>
 
     {% block head_content %}
-        <title>AlmamyLocation</title>
+        <title>Alocation</title>
         
         <!-- ..... -->
     {% endblock %}
 </head>
 <body>
     <main>
-        <header>
+        <header class="section-padding">
             <h1>
-                <a href="{% url 'renter:renters-list' %}">AlmamyLocation</a>
+                <a href="{% url 'renter:renters-list' %}">Alocation</a>
             </h1>
-    
-            <div>
-                <span>{{ request.user.username.upper }}</span>
-                <span class="today-date">{{ now_date }}</span>
+            
+            <div class="profile-head">
+                <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="24" cy="24" r="18" fill="#939699"/>
+                    <path d="M32 20C32 22.1217 31.1571 24.1566 29.6569 25.6569C28.1566 27.1571 26.1217 28 24 28C21.8783 28 19.8434 27.1571 18.3431 25.6569C16.8429 24.1566 16 22.1217 16 20C16 17.8783 16.8429 15.8434 18.3431 14.3431C19.8434 12.8429 21.8783 12 24 12C26.1217 12 28.1566 12.8429 29.6569 14.3431C31.1571 15.8434 32 17.8783 32 20Z" fill="#E1E1E1"/>
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="M23.184 43.984C12.517 43.556 4 34.772 4 24C4 12.954 12.954 4 24 4C35.046 4 44 12.954 44 24C44 35.046 35.046 44 24 44C23.9087 44.0006 23.8173 44.0006 23.726 44C23.545 44 23.364 43.994 23.184 43.984ZM11.166 36.62C11.0165 36.1906 10.9656 35.733 11.0171 35.2812C11.0686 34.8294 11.2212 34.395 11.4636 34.0103C11.706 33.6255 12.0319 33.3003 12.4171 33.0588C12.8024 32.8172 13.2371 32.6655 13.689 32.615C21.485 31.752 26.563 31.83 34.321 32.633C34.7735 32.6801 35.2093 32.8299 35.5952 33.0709C35.9811 33.3119 36.3068 33.6378 36.5477 34.0237C36.7886 34.4096 36.9383 34.8455 36.9853 35.298C37.0323 35.7505 36.9754 36.2078 36.819 36.635C40.1439 33.2709 42.006 28.7299 42 24C42 14.059 33.941 6 24 6C14.059 6 6 14.059 6 24C6 28.916 7.971 33.372 11.166 36.62Z" fill="#E1E1E1"/>
+                    <circle cx="38" cy="38" r="6" fill="#2C659E"/>
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="M38.4322 39.8473C38.3195 39.9451 38.1667 40 38.0074 40C37.8481 40 37.6952 39.9451 37.5826 39.8473L34.1834 36.8967C34.126 36.8486 34.0803 36.7911 34.0488 36.7274C34.0173 36.6638 34.0007 36.5954 34 36.5261C33.9993 36.4569 34.0145 36.3882 34.0447 36.3241C34.075 36.26 34.1196 36.2017 34.176 36.1528C34.2324 36.1038 34.2995 36.0651 34.3733 36.0388C34.4472 36.0126 34.5263 35.9994 34.6061 36C34.6859 36.0006 34.7647 36.015 34.838 36.0423C34.9113 36.0697 34.9776 36.1094 35.0331 36.1592L38.0074 38.741L40.9817 36.1592C41.095 36.0642 41.2468 36.0116 41.4043 36.0128C41.5619 36.014 41.7126 36.0689 41.824 36.1656C41.9354 36.2623 41.9986 36.3931 42 36.5299C42.0013 36.6666 41.9408 36.7984 41.8313 36.8967L38.4322 39.8473Z" fill="#F9F9F9"/>
+                </svg>
+            </div>  
+                
+            <div class="dropdown">
+                <span class="username">{{ request.user.username.upper }}</span>
+                {# <span class="today-date">{{ now_date }}</span> #}
                 {% if request.user.is_staff %}
-                <a href="{% url 'admin:login' %}" target="_blank" class="admin-panel-link">ADMINISTRER</a>
+                <a href="{% url 'admin:login' %}" target="_blank" class="admin-panel-link">Administration</a>
                 {% endif %}
                 <a href="{% url 'logout-user' %}">Déconnexion</a>
             </div>
