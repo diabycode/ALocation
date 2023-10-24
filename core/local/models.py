@@ -12,7 +12,7 @@ class SinceDateAssignedWithoutTenant(Exception):
 class Local(models.Model):
     tag_name = models.CharField(max_length=130)
     current_tenant = models.ForeignKey("renter.Renter", on_delete=models.SET_NULL, null=True, blank=True)
-    rent_price = models.FloatField(default=0, blank=True)
+    rent_price = models.FloatField(blank=True)
     address = models.CharField(max_length=150)
     rented_since = models.DateField(blank=True, null=True)
 
