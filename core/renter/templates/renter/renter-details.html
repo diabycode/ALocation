@@ -13,97 +13,99 @@
 {% block body_content %}
 
     <div class="container">
-        <div>
-            <div class="profile-icon">
-                <svg width="86" height="86" viewBox="0 0 86 86" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M60 34.5C60 39.0087 58.2089 43.3327 55.0208 46.5208C51.8327 49.7089 47.5087 51.5 43 51.5C38.4913 51.5 34.1673 49.7089 30.9792 46.5208C27.7911 43.3327 26 39.0087 26 34.5C26 29.9913 27.7911 25.6673 30.9792 22.4792C34.1673 19.2911 38.4913 17.5 43 17.5C47.5087 17.5 51.8327 19.2911 55.0208 22.4792C58.2089 25.6673 60 29.9913 60 34.5Z" fill="#6C6C6C"/>
-                    <path fill-rule="evenodd" clip-rule="evenodd" d="M41.266 85.466C18.5986 84.5565 0.5 65.8905 0.5 43C0.5 19.5273 19.5273 0.5 43 0.5C66.4727 0.5 85.5 19.5273 85.5 43C85.5 66.4728 66.4727 85.5 43 85.5C42.8059 85.5013 42.6118 85.5013 42.4178 85.5C42.0331 85.5 41.6485 85.4873 41.266 85.466ZM15.7278 69.8175C15.41 68.905 15.3018 67.9326 15.4113 66.9725C15.5208 66.0125 15.8451 65.0894 16.3601 64.2718C16.8751 63.4542 17.5677 62.7632 18.3864 62.2499C19.2051 61.7366 20.1288 61.4143 21.0891 61.3069C37.6556 59.473 48.4464 59.6388 64.9321 61.3451C65.8937 61.4453 66.8197 61.7635 67.6397 62.2756C68.4597 62.7878 69.152 63.4803 69.664 64.3004C70.1759 65.1205 70.4939 66.0466 70.5938 67.0082C70.6937 67.9698 70.5728 68.9416 70.2404 69.8494C77.3059 62.7007 81.2627 53.0511 81.25 43C81.25 21.8754 64.1246 4.75 43 4.75C21.8754 4.75 4.75 21.8754 4.75 43C4.75 53.4465 8.93838 62.9155 15.7278 69.8175Z" fill="#6C6C6C"/>
-                </svg>
+        <div class="content section-padding">
+            <div>
+                <div class="profile-icon">
+                    <svg width="86" height="86" viewBox="0 0 86 86" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M60 34.5C60 39.0087 58.2089 43.3327 55.0208 46.5208C51.8327 49.7089 47.5087 51.5 43 51.5C38.4913 51.5 34.1673 49.7089 30.9792 46.5208C27.7911 43.3327 26 39.0087 26 34.5C26 29.9913 27.7911 25.6673 30.9792 22.4792C34.1673 19.2911 38.4913 17.5 43 17.5C47.5087 17.5 51.8327 19.2911 55.0208 22.4792C58.2089 25.6673 60 29.9913 60 34.5Z" fill="#6C6C6C"/>
+                        <path fill-rule="evenodd" clip-rule="evenodd" d="M41.266 85.466C18.5986 84.5565 0.5 65.8905 0.5 43C0.5 19.5273 19.5273 0.5 43 0.5C66.4727 0.5 85.5 19.5273 85.5 43C85.5 66.4728 66.4727 85.5 43 85.5C42.8059 85.5013 42.6118 85.5013 42.4178 85.5C42.0331 85.5 41.6485 85.4873 41.266 85.466ZM15.7278 69.8175C15.41 68.905 15.3018 67.9326 15.4113 66.9725C15.5208 66.0125 15.8451 65.0894 16.3601 64.2718C16.8751 63.4542 17.5677 62.7632 18.3864 62.2499C19.2051 61.7366 20.1288 61.4143 21.0891 61.3069C37.6556 59.473 48.4464 59.6388 64.9321 61.3451C65.8937 61.4453 66.8197 61.7635 67.6397 62.2756C68.4597 62.7878 69.152 63.4803 69.664 64.3004C70.1759 65.1205 70.4939 66.0466 70.5938 67.0082C70.6937 67.9698 70.5728 68.9416 70.2404 69.8494C77.3059 62.7007 81.2627 53.0511 81.25 43C81.25 21.8754 64.1246 4.75 43 4.75C21.8754 4.75 4.75 21.8754 4.75 43C4.75 53.4465 8.93838 62.9155 15.7278 69.8175Z" fill="#6C6C6C"/>
+                    </svg>
+                </div>
+                <div class="details">
+                    <h3>{{ renter.fullname }}</h3>
+                    <div>
+                        {% if renter_locals %}
+                            {% for local in renter_locals %}
+                                <span> {{ local.tag_name }}, </span>
+                            {% endfor %}
+        
+                        {% else %}
+                            <p>Aucun local assigné</p>
+                        {% endif %}
+                    </div>
+                    <p>{{ renter.email }}</p>
+                    <p>{{ renter.phone }}</p>
+                    <p>{{ renter.address }}</p>
+                </div>
             </div>
-            <div class="details">
-                <h3>{{ renter.fullname }}</h3>
-                <div>
-                    {% if renter_locals %}
-                        {% for local in renter_locals %}
-                            <span> {{ local.tag_name }}, </span>
-                        {% endfor %}
-    
+        
+            <div>
+                <div class="payments-table">
+                    <h4>Paiements récents</h4>
+                    {% if renter_payments %}
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Local</th>
+                                    <th>Paiement du</th>
+                                    <th>Dernier délais</th>
+                                    <th>Etat</th>
+                                    <th>Paiement effectué le<th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for payment in renter_payments %}
+                                    <!-- 
+                                        renter
+                                        local
+                                        created_at
+                                        paid_at
+                                        paid
+                                    -->
+                                    <tr>
+                                        <td> {{ payment.local }} </td>
+                                        <td> {{ payment.created_at }} </td>
+                                        <td> {{ payment.due_date }} </td>
+                                        <td><span class="{% if payment.paid %} paid {% else %} unpaid {% endif %}">{% if payment.paid %} payé {% else %} impayé {% endif %}</span></td>
+                                        <td> {% if payment.paid_at %} {{ payment.paid_at }} {% else %} - {% endif %} </td>
+                                    </tr>
+                
+                                {% endfor  %}
+                            </tbody>
+                        </table>
                     {% else %}
-                        <p>Aucun local assigné</p>
+                        <p>Aucun historique de paiement</p>
                     {% endif %}
                 </div>
-                <p>{{ renter.email }}</p>
-                <p>{{ renter.phone }}</p>
-                <p>{{ renter.address }}</p>
-            </div>
-        </div>
-    
-        <div>
-            <div class="payments-table">
-                <h4>Paiements récents</h4>
-                {% if renter_payments %}
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Local</th>
-                                <th>Paiement du</th>
-                                <th>Dernier délais</th>
-                                <th>Etat</th>
-                                <th>Paiement effectué le<th>
-                            </tr>
-                        </thead>
-                        <tbody>
+                <div class="process-payment">
+                    <h4>Régler un paiement</h4>
+                    <form action="{% url 'make_payment' %}" method="POST">
+                        {% csrf_token %}
+                        <select name="payment" id="payment-select">
+                            <option selected value="#">Paiements non réglés</option>
                             {% for payment in renter_payments %}
-                                <!-- 
-                                    renter
-                                    local
-                                    created_at
-                                    paid_at
-                                    paid
-                                -->
-                                <tr>
-                                    <td> {{ payment.local }} </td>
-                                    <td> {{ payment.created_at }} </td>
-                                    <td> {{ payment.due_date }} </td>
-                                    <td><span class="{% if payment.paid %} paid {% else %} unpaid {% endif %}">{% if payment.paid %} payé {% else %} impayé {% endif %}</span></td>
-                                    <td> {% if payment.paid_at %} {{ payment.paid_at }} {% else %} - {% endif %} </td>
-                                </tr>
-            
-                            {% endfor  %}
-                        </tbody>
-                    </table>
-                {% else %}
-                    <p>Aucun historique de paiement</p>
-                {% endif %}
-            </div>
-            <div class="process-payment">
-                <h4>Régler un paiement</h4>
-                <form action="{% url 'make_payment' %}" method="POST">
-                    {% csrf_token %}
-                    <select name="payment" id="payment-select">
-                        <option selected value="#">Paiements non réglés</option>
-                        {% for payment in renter_payments %}
-                        {% if not payment.paid %}
-                        <option value="{{ payment.pk }}">Paiement --- {{ payment.created_at_str }}</option>
-                        {% endif %}
-                        {% endfor %}
-                    </select>
-                    <input type="submit" value="Payer" class="blue">
-                </form>
-            </div>
-            <div class="assign-local">
-                <h4>Assigner des locaux</h4>
-                <form action="{% url 'local:assign-local-to-renter' %}" method="POST">
-                    {% csrf_token %}
-                    <select name="locals_selected" id="locals-select" multiple class="multiple-select">
-                        <!-- <option selected value="#">Paiements non réglés</option> -->
-                        {% for local in locals_list %}
-                            <option value="{{ local.pk }}">{{ local.tag_name }}__ {{ local.rent_price }}f</option>
-                        {% endfor %}
-                    </select>
-                    <input type="hidden" name="renter_id" value="{{ renter.pk }}">
-                    <input type="submit" value="Assigner" class="blue">
-                </form>
+                            {% if not payment.paid %}
+                            <option value="{{ payment.pk }}">Paiement --- {{ payment.created_at_str }}</option>
+                            {% endif %}
+                            {% endfor %}
+                        </select>
+                        <input type="submit" value="Payer" class="blue">
+                    </form>
+                </div>
+                <div class="assign-local">
+                    <h4>Assigner des locaux</h4>
+                    <form action="{% url 'local:assign-local-to-renter' %}" method="POST">
+                        {% csrf_token %}
+                        <select name="locals_selected" id="locals-select" multiple class="multiple-select">
+                            <!-- <option selected value="#">Paiements non réglés</option> -->
+                            {% for local in locals_list %}
+                                <option value="{{ local.pk }}">{{ local.tag_name }}__ {{ local.rent_price }}f</option>
+                            {% endfor %}
+                        </select>
+                        <input type="hidden" name="renter_id" value="{{ renter.pk }}">
+                        <input type="submit" value="Assigner" class="blue">
+                    </form>
+                </div>
             </div>
         </div>
     </div>
