@@ -1,0 +1,50 @@
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    overflow: hidden;
+
+    background-color: var(--backgroundDark);
+}
+* {
+    color: var(--white);
+}
+
+main {
+    width: 100%;
+    max-width: 395px;
+    padding: 10px;
+}
+h1 {
+    margin-bottom: 1.5rem;
+}
+#login-form {
+    margin-top: 1.5rem;
+}
+form input[type="text"],
+form input[type="password"] {
+    padding: 10px 8px;
+    width: 100%;
+    outline: none;
+    border: 1px solid var(--gray);
+    margin-bottom: 10px;
+}
+form input[type="text"]:focus,
+form input[type="password"]:focus {
+    border: 1px solid var(--accentBlue);
+}
+form input[type="submit"] {
+    padding: 10px 10px;
+    cursor: pointer;
+    background-color: var(--accentBlue);
+    color: var(--white);
+    font-size: var(--normal);
+}
+.errorlist {
+    margin-bottom: 10px;
+}
+.errorlist li {
+    font-size: var(--min);
+    color: var(--accentRed);
+}

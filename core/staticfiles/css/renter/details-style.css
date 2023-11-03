@@ -1,0 +1,113 @@
+.container {
+    display: flex;
+    justify-content: center;
+    margin-top: 2rem;
+    /* gap: 3rem;
+    margin-top: 2rem;
+    flex-wrap: wrap; */
+}
+.content {
+    margin: auto;
+    display: flex;
+    gap: 50px;
+    /* flex-wrap: wrap; */
+}
+
+/* .container > div {
+    margin-bottom: 2rem;
+    background-color: blue;
+    flex-grow: 1;
+} */
+/* .container > div:first-child {
+    max-width: 300px;
+} */
+/* .container > div:last-child {
+    flex-shrink: 3;
+} */
+
+/* payment form */
+.process-payment {
+    margin-bottom: 2rem;
+}
+.process-payment form select:focus {
+    border-bottom-color: var(--accentBlue);
+    color: var(--accentBlue);
+}
+.process-payment form select {
+    border: none;
+    border-bottom: 1px solid var(--gray);
+    width: 50%;
+    max-width: 300px;
+    outline: none;
+    cursor: pointer;
+    margin-right: 1rem;
+}
+
+/* profile */
+
+.profile-icon {
+    margin-bottom: 1rem;
+}
+.profile-icon svg {
+    width: 60px;
+    height: 60px;
+}
+.details span {
+    font-size: var(--subtitle);
+    font-weight: 500;
+}
+.details div {
+    margin-bottom: 1rem;
+}
+
+/*--- payments table */
+
+td span.paid,
+td span.unpaid {
+    color: var(--accentBlue);
+    padding: 2px 3px;
+    font-weight: 600;
+}
+td span.unpaid {
+    color: var(--accentRed);
+}
+.payments-table::-webkit-scrollbar {
+    display: none;
+}
+.payments-table {
+    overflow-x: scroll;
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+    margin-bottom: 2rem;
+    /* background-color: green; */
+}
+.payments-table table {
+    border-spacing: 0;
+}
+.payments-table table * {
+    font-weight: 400;
+}
+.payments-table thead * {
+    font-weight: 500;
+}
+.payments-table td,
+.payments-table tr,
+.payments-table th {
+    padding: 10px 10px;
+    white-space: nowrap;
+}
+.payments-table tbody tr td {
+    border-bottom: 1px solid var(--lightGray);
+    font-size: var(--min);
+}
+.payments-table thead {
+    /* background-color: var(--lightGray); */
+    text-align: left;
+}
+
+/* for ipad 900px */
+@media screen and (max-width: 900px) {
+    .content {
+        flex-wrap: wrap;
+    }
+}
