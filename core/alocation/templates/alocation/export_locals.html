@@ -1,0 +1,176 @@
+{% extends "alocation/generic-page.html" %}
+{% load static %}
+
+{% block head_content %}
+    <title>Alocation/Locaux</title>
+    <link rel="stylesheet" href="{% static 'css/renter/list-style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/alocation/export.css' %}">
+
+    <!-- scripts -->
+{% endblock %}
+
+{% block body_content %}
+    <div class="body-container section-padding">
+        <h3> Exporter des locaux </h3>
+
+        <div class="body-content">
+            <div class="sidebar">
+                <p> Filtrer les données </p>
+
+                <div class="filters">
+                    <form>
+                        <ul>
+                            {% for field in filter_form.hidden_fields %}
+                                {{ field }}
+                            {% endfor %}
+
+                            {% for field in filter_form.visible_fields %}
+                                <li>
+                                    {{ field }}
+                                    <label for="id_{{ field.name }}"> {{ field.label }} </label>
+                                </li>
+                            {% endfor %}
+                        </ul>
+
+                        <input type="submit" value="Filtrer" >
+                    </form>
+                </div>
+            </div>
+
+            <div class="export-data">
+                
+                <div class="locals list-table">
+                    {% if objects %}
+                    <table class="dynamic">
+                        <thead>
+                            <tr>
+                                <th>
+                                    <span>
+                                        N°
+            
+                                    </span>
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M7 10L12 15L17 10H7Z" fill="#040F16"/>
+                                    </svg>
+                                </th>
+                                <th>
+                                    <span>
+                                        Etiquette
+            
+                                    </span>
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M7 10L12 15L17 10H7Z" fill="#040F16"/>
+                                    </svg>
+                                </th>
+                                <th>
+                                    <span>
+                                        Adresse
+            
+                                    </span>
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M7 10L12 15L17 10H7Z" fill="#040F16"/>
+                                    </svg>
+                                </th>
+                                <th>
+                                    <span>
+                                        Locataire actuel
+            
+                                    </span>
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M7 10L12 15L17 10H7Z" fill="#040F16"/>
+                                    </svg>
+                                </th>
+                                <th>
+                                    <span>
+                                        Loué depuis
+            
+                                    </span>
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M7 10L12 15L17 10H7Z" fill="#040F16"/>
+                                    </svg>
+                                </th>
+                                <th>
+                                    <span>
+                                        Prix (FCFA)
+            
+                                    </span>
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M7 10L12 15L17 10H7Z" fill="#040F16"/>
+                                    </svg>
+                                </th>
+                                <th>
+                                    <span>Paiements</span>
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M7 10L12 15L17 10H7Z" fill="#040F16"/>
+                                    </svg>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for local in objects %}
+                
+                                <tr>
+                                    <td> {{ forloop.counter }} </td>
+                                    <td> {{ local.tag_name }} </td>
+                                    <td aria-label="{{ local.address }}"> {{ local.address|truncatechars:15 }} </td>
+                                    <td> {% if local.current_tenant %} {{ local.current_tenant.fullname }} {% else %} - {% endif %} </td>
+                                    <td> {% if local.rented_since %} {{ local.rented_since }} {% else %} - {% endif %}  </td>
+                                    <td> {{ local.rent_price }} </td>
+                                    <td>
+                                        {% if local.payment_set.all %}
+                                            {% for payment in local.payment_set.all %}
+                                                {% if payment.paid %}
+                                                    <img src="{% static 'images/alocation/icon__success.svg' %}" alt="icon for payment status">
+                                                {% else %}
+                                                    <img src="{% static 'images/alocation/icon__faild.svg' %}" alt="icon for payment status">
+                                                {% endif %}
+                                            {% endfor %}
+                                        {% else %}
+                                            -
+                                        {% endif %}
+                                    </td>
+                                    <td class="details-link">
+                                        <a href="{% url 'local:local-details' pk=local.pk %}"> </a>
+                                    </td>
+                                    <!-- <a href="{% url 'local:edit' pk=local.pk %}">
+                                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M18.988 2.01196L21.988 5.01196L19.701 7.29996L16.701 4.29996L18.988 2.01196ZM8 16H11L18.287 8.71296L15.287 5.71296L8 13V16Z" fill="#2C659E"/>
+                                            <path d="M19 19H8.158C8.132 19 8.105 19.01 8.079 19.01C8.046 19.01 8.013 19.001 7.979 19H5V5H11.847L13.847 3H5C3.897 3 3 3.896 3 5V19C3 20.104 3.897 21 5 21H19C19.5304 21 20.0391 20.7893 20.4142 20.4142C20.7893 20.0391 21 19.5304 21 19V10.332L19 12.332V19Z" fill="#2C659E"/>
+                                        </svg>
+                                    </a>
+                                    <a href="{% url 'local:delete' pk=local.pk %}">
+                                        <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M9.16668 5.50004H12.8333C12.8333 5.01381 12.6402 4.54749 12.2964 4.20368C11.9526 3.85986 11.4862 3.66671 11 3.66671C10.5138 3.66671 10.0475 3.85986 9.70365 4.20368C9.35983 4.54749 9.16668 5.01381 9.16668 5.50004ZM7.33334 5.50004C7.33334 4.52758 7.71965 3.59495 8.40728 2.90732C9.09492 2.21968 10.0275 1.83337 11 1.83337C11.9725 1.83337 12.9051 2.21968 13.5927 2.90732C14.2804 3.59495 14.6667 4.52758 14.6667 5.50004H19.25C19.4931 5.50004 19.7263 5.59662 19.8982 5.76853C20.0701 5.94043 20.1667 6.17359 20.1667 6.41671C20.1667 6.65982 20.0701 6.89298 19.8982 7.06489C19.7263 7.2368 19.4931 7.33337 19.25 7.33337H18.4415L17.6293 16.8117C17.5513 17.727 17.1325 18.5796 16.4559 19.2009C15.7793 19.8221 14.8941 20.1668 13.9755 20.1667H8.02451C7.10593 20.1668 6.22076 19.8221 5.54415 19.2009C4.86753 18.5796 4.44876 17.727 4.37068 16.8117L3.55851 7.33337H2.75001C2.5069 7.33337 2.27374 7.2368 2.10183 7.06489C1.92992 6.89298 1.83334 6.65982 1.83334 6.41671C1.83334 6.17359 1.92992 5.94043 2.10183 5.76853C2.27374 5.59662 2.5069 5.50004 2.75001 5.50004H7.33334ZM13.75 11C13.75 10.7569 13.6534 10.5238 13.4815 10.3519C13.3096 10.18 13.0765 10.0834 12.8333 10.0834C12.5902 10.0834 12.3571 10.18 12.1852 10.3519C12.0133 10.5238 11.9167 10.7569 11.9167 11V14.6667C11.9167 14.9098 12.0133 15.143 12.1852 15.3149C12.3571 15.4868 12.5902 15.5834 12.8333 15.5834C13.0765 15.5834 13.3096 15.4868 13.4815 15.3149C13.6534 15.143 13.75 14.9098 13.75 14.6667V11ZM9.16668 10.0834C9.40979 10.0834 9.64295 10.18 9.81486 10.3519C9.98677 10.5238 10.0833 10.7569 10.0833 11V14.6667C10.0833 14.9098 9.98677 15.143 9.81486 15.3149C9.64295 15.4868 9.40979 15.5834 9.16668 15.5834C8.92356 15.5834 8.6904 15.4868 8.5185 15.3149C8.34659 15.143 8.25001 14.9098 8.25001 14.6667V11C8.25001 10.7569 8.34659 10.5238 8.5185 10.3519C8.6904 10.18 8.92356 10.0834 9.16668 10.0834ZM6.19668 16.6559C6.23573 17.1137 6.44525 17.5401 6.78375 17.8508C7.12225 18.1614 7.56506 18.3337 8.02451 18.3334H13.9755C14.4346 18.3332 14.877 18.1608 15.2151 17.8501C15.5532 17.5395 15.7625 17.1133 15.8015 16.6559L16.6008 7.33337H5.39918L6.19668 16.6559Z" fill="#C95F4F"/>
+                                        </svg>
+                                    </a> -->
+                                </tr>
+                
+                            {% endfor  %}
+                            
+                        </tbody>
+                    </table>
+                    {% else %}
+                        <p>Aucune données</p>
+                    {% endif %}
+                </div>
+
+                <div class="export-options">
+                    <form>
+                        <select name="export_format" id="export_format">
+                            <option value="pdf"> PDF </option>
+                            <option value="xlsx" selected> Excel </option>
+                            <option value="csv">CSV</option>
+                        </select>
+
+                        {% for field in hidden_filter_form %}
+                            {{ field.as_hidden }}
+                        {% endfor %}
+                        
+                        <input type="submit" value="Exporter" >
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+

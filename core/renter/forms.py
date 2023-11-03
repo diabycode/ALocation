@@ -69,3 +69,16 @@ class RenterForm(forms.ModelForm):
         instance.save()
         return instance
 
+
+
+class RenterFilterForm(forms.Form):
+
+    # hidden filed to activate filters
+    filter = forms.BooleanField(required=False, initial=True, widget=forms.HiddenInput())
+
+    currently_tenant = forms.BooleanField(label="locataires actuel", required=False)
+    not_currently_tenant = forms.BooleanField(label="anciens locataires", required=False)
+
+    has_a_debt = forms.BooleanField(label="endettés", required=False)
+    has_no_debt = forms.BooleanField(label="non endettés", required=False)
+

@@ -1,6 +1,7 @@
 .container {
     display: flex;
     justify-content: center;
+    margin-top: 2rem;
     /* gap: 3rem;
     margin-top: 2rem;
     flex-wrap: wrap; */
@@ -63,13 +64,12 @@
 
 td span.paid,
 td span.unpaid {
-    background-color: var(--accentBlue);
-    color: var(--white);
+    color: var(--accentBlue);
     padding: 2px 3px;
     font-weight: 600;
 }
 td span.unpaid {
-    background-color: var(--accentRed);
+    color: var(--accentRed);
 }
 .payments-table::-webkit-scrollbar {
     display: none;
@@ -87,6 +87,9 @@ td span.unpaid {
 .payments-table table * {
     font-weight: 400;
 }
+.payments-table thead * {
+    font-weight: 500;
+}
 .payments-table td,
 .payments-table tr,
 .payments-table th {
@@ -98,7 +101,7 @@ td span.unpaid {
     font-size: var(--min);
 }
 .payments-table thead {
-    background-color: var(--lightGray);
+    /* background-color: var(--lightGray); */
     text-align: left;
 }
 

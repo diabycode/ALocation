@@ -3,6 +3,14 @@ from django import forms
 
 
 class CustomAuthenticationForm(AuthenticationForm):
+    
+    error_messages = {
+        "invalid_login": (
+            "Nom d'utilisateur ou mot de passe incorrect."
+        ),
+        "inactive": ("Ce compte est inactif."),
+    }
+
     username = UsernameField(widget=forms.TextInput(
         attrs={
             "autofocus": True,

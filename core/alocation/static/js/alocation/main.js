@@ -41,3 +41,9 @@ document.querySelector(".profile-head").addEventListener("click", () => {
     document.querySelector("header .dropdown").classList.toggle("show")
 })
 
+
+// open filter options
+document.querySelector(".filter-btn").addEventListener("click", () => {
+    document.querySelector(".filter-options").classList.toggle("active")
+})
+

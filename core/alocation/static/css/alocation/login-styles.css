@@ -4,6 +4,11 @@ body {
     align-items: center;
     height: 100vh;
     overflow: hidden;
+
+    background-color: var(--backgroundDark);
+}
+* {
+    color: var(--white);
 }
 
 main {
@@ -32,7 +37,7 @@ form input[type="password"]:focus {
 form input[type="submit"] {
     padding: 10px 10px;
     cursor: pointer;
-    background-color: var(--blackDark);
+    background-color: var(--accentBlue);
     color: var(--white);
     font-size: var(--normal);
 }

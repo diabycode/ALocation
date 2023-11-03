@@ -18,12 +18,10 @@
     --accentGreen: #76b460;
     --accentRed: #c95f4f;
     --tooLightGray: #f6f6f6;
-}
+    --backgroundDark: #181e21;
 
-html {
-    font-size: 14px;
+    --boxShadow--bottom: 0px 0px 10px #02070a33;
 }
-body,
 * {
     margin: 0;
     padding: 0;
@@ -31,15 +29,27 @@ body,
     font-size: 1rem;
 
     box-sizing: border-box;
-    color: var(--blackDark);
     list-style: none;
+
+    /* for dark mode */
+    /* color: var(--white); */
+
+    /* for white mode */
+    color: var(--blackDark);
+}
+html {
+    font-size: 14px;
+}
+body {
+    /* white */
+    background-color: var(--white);
+
+    /* dark */
+    /* background-color: var(--backgroundDark); */
 }
 svg {
     width: 20px;
     height: 20px;
-}
-.section-padding {
-    padding: 0 10px;
 }
 
 /* generics page styles ------------- */
@@ -58,9 +68,6 @@ h4 {
     margin-bottom: 1rem;
 }
 
-body {
-    background-color: var(--white);
-}
 input,
 select {
     background: none;
@@ -91,13 +98,18 @@ main {
     margin: auto;
     /* padding-top: 2rem; */
 }
+.section-padding {
+    padding-left: 10px;
+    padding-right: 10px;
+}
 header {
     display: flex;
-    margin-bottom: 3rem;
     justify-content: space-between;
     align-items: center;
     position: relative;
-    background-color: var(--lightGray);
+    box-shadow: var(--boxShadow--bottom);
+
+    /* background-color: var(--lightGray); */
 }
 header h1 a {
     text-decoration: none;
@@ -119,6 +131,7 @@ header .dropdown {
     position: absolute;
     right: 0;
     top: 50px;
+    z-index: 1000;
 }
 header .dropdown.show {
     display: flex;

@@ -1,7 +1,7 @@
 
 from django.urls import path
 
-from .views import RenterListView, RenterDetailView, RenterDeleteView, RenterCreateView, RenterEditView
+from .views import *
 
 app_name = "renter"
 

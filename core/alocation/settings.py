@@ -15,7 +15,7 @@ SECRET_KEY = 'django-insecure-88x78m=libytu*g0%h^%0)s%uwhca!0ix!=k$+57p_tf0&kitc
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -31,7 +31,7 @@ INSTALLED_APPS = [
     'livereload',
 
     'renter',
-    'local'
+    'local',
 ]
 
 MIDDLEWARE = [

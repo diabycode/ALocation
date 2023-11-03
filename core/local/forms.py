@@ -26,5 +26,15 @@ class LocalForm(forms.ModelForm):
         }
 
 
+class LocalFilterForm(forms.Form):
 
+    # hidden filed to activate filters
+    filter = forms.BooleanField(required=False, initial=True, widget=forms.HiddenInput())
 
+    has_a_tenant = forms.BooleanField(label="occupé", required=False)
+    has_no_tenant = forms.BooleanField(label="non occupé", required=False)
+
+    has_a_debt = forms.BooleanField(label="endetté", required=False)
+    has_no_debt = forms.BooleanField(label="non endetté", required=False)
+
+    # price range filed to do

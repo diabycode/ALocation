@@ -1,6 +1,6 @@
-
 .model-form {
     margin: auto;
+    margin-top: 2rem;
     max-width: 670px;
 }
 .model-form > p {
@@ -15,7 +15,7 @@
 .fields p {
     width: 100%;
 }
-.fields p>span {
+.fields p > span {
     display: block;
     margin-bottom: 1rem;
     font-size: var(--min);
@@ -25,7 +25,6 @@
     display: flex;
     width: 100%;
     gap: 20px;
-
 }
 .fields input::placeholder {
     color: var(--gray);

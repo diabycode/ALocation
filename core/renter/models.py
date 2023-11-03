@@ -50,6 +50,7 @@ class Renter(models.Model):
     class Meta:
         verbose_name = 'Locataire'
         verbose_name_plural = 'Locataires'
+        ordering = ["-added_at"]
 
     def __str__(self):
         return self.fullname
@@ -82,7 +83,6 @@ class Renter(models.Model):
         # Generate payment
         self.generate_payment(local=local)
 
-    
     def get_all_locals(self):
         return self.local_set.all()
     
@@ -97,6 +97,9 @@ class Renter(models.Model):
     def locals_rented(self):
         return ", ".join([l.tag_name for l in self.local_set.all()])
 
+    @property
+    def is_currently_tenant(self):
+        return bool(self.local_set.all())
 
 
 
