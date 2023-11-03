@@ -1,0 +1,1 @@
+web: gunicorn alocation.wsgi --log-file -
