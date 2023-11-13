@@ -1,3 +1,4 @@
+import json 
 
 from pathlib import Path
 import datetime
@@ -5,17 +6,19 @@ import datetime
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+# load settings from ENV.json file
+with open(BASE_DIR / "ENV.json") as f:
+    ENV = json.load(f)
+    server_settings = ENV["server_settings"]
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-88x78m=libytu*g0%h^%0)s%uwhca!0ix!=k$+57p_tf0&kitc'
+SECRET_KEY = server_settings["SECRET_KEY"]
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = server_settings["DEBUG"]
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = server_settings["ALLOWED_HOSTS"]
 
 
 # Application definition
@@ -119,11 +122,14 @@ NOW_DATE = datetime.date.today()
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
 STATIC_ROOT = BASE_DIR / "staticfiles"
 STATICFILES_DIRS  = [
     BASE_DIR / "alocation/static",
 ]
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'mediafiles'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
