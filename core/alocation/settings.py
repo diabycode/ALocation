@@ -32,6 +32,8 @@ INSTALLED_APPS = [
 
     'renter',
     'local',
+    'tracks_and_activities',
+    'boards',
 ]
 
 MIDDLEWARE = [

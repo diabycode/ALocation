@@ -30,6 +30,11 @@ class Local(models.Model):
             raise SinceDateAssignedWithoutTenant("Impossible d'ajouter une date de location à un local sans locataire ! ")
         return super().save(*args, **kwargs)
 
+    def unasign_tenant(self):
+        self.current_tenant = None
+        self.rented_since = None
+        self.save()
+
     @property
     def is_currently_rented(self):
         return bool(self.current_tenant)

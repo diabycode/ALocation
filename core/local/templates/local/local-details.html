@@ -33,6 +33,7 @@
                     <p>{{ local.current_tenant.fullname }}</p>
                     <p>{{ local.address }}</p>
                 </div>
+                
             </div>
         
             <div>
@@ -88,6 +89,23 @@
                             {% endfor %}
                         </select>
                         <input type="submit" value="Payer" class="blue">
+                    </form>
+                </div>
+                <div class="change-renter-form">
+                    <h4>Changer de locataire</h4>
+                    <form action="{% url 'local:change_renter' %}" method="POST">
+                        {% csrf_token %}
+
+                        <input type="hidden" name="local" value="{{ local.pk }}">
+
+                        <select name="renter" id="renter-select">
+                            <option selected value="#">Choisir un locataire</option>
+                            <option value="none">Aucun</option>
+                            {% for renter in renters_list %}
+                            <option value="{{ renter.pk }}">{{ renter.fullname }}</option>
+                            {% endfor %}
+                        </select>
+                        <input type="submit" value="Changer" class="blue">
                     </form>
                 </div>
             </div>

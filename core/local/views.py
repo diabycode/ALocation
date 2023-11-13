@@ -4,6 +4,9 @@ from django.views.generic import ListView, DetailView, DeleteView, CreateView, U
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import redirect
 from django.urls import reverse_lazy, reverse
+from django.contrib.admin.models import LogEntry, CHANGE, ADDITION, DELETION
+from django.contrib.contenttypes.models import ContentType
+
 
 from .models import Local
 from renter.models import Renter
@@ -109,6 +112,7 @@ class LocalDetailsView(DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["payments_list"] = (self.get_object()).payment_set.all()
+        context["renters_list"] = Renter.objects.all().order_by("last_name")
         return context
 
 
@@ -121,6 +125,20 @@ class LocalDeleteView(DeleteView):
     def get_success_url(self) -> str:
         return reverse("local:locals-list")
 
+    def form_valid(self, form):
+        response = super().form_valid(form)
+
+        # Create a log entry
+        LogEntry.objects.create(
+            user=self.request.user,
+            content_type_id=ContentType.objects.get_for_model(self.object).pk,
+            object_repr=str(self.object),
+            action_flag=DELETION,
+            change_message=f"Local '{self.object.tag_name}' supprimé",
+        )
+
+        return response
+
 
 class LocalAddView(CreateView):
     model = Local
@@ -128,6 +146,21 @@ class LocalAddView(CreateView):
     form_class = LocalForm
     success_url = reverse_lazy("local:locals-list")
     extra_context = {'now_date': NOW_DATE_STR}
+
+    def form_valid(self, form):
+        response = super().form_valid(form)
+        
+        # Create a log entry
+        LogEntry.objects.create(
+            user=self.request.user,
+            content_type_id=ContentType.objects.get_for_model(self.object).pk,
+            object_repr=str(self.object),
+            object_id=self.object.pk,
+            action_flag=ADDITION,
+            change_message=f"Local '{self.object.tag_name}' ajouté",
+        )
+        
+        return response
 
 
 class LocalEditView(UpdateView):
@@ -139,6 +172,36 @@ class LocalEditView(UpdateView):
     def get_success_url(self) -> str:
         success_url = reverse("local:local-details", kwargs={'pk': (self.get_object()).pk}) 
         return success_url
+
+    def get_changed_fields(self, form):
+        changes = {}
+        for field in form.changed_data:
+            changes[field]  = form.cleaned_data[field]
+        
+        return changes
+    
+    def form_valid(self, form):
+        old_object = self.get_object()
+    
+        response = super().form_valid(form)
+
+        changes = self.get_changed_fields(form)
+        changes_str = (
+            f"[{Local._meta.get_field(change_field).verbose_name}] : ('{getattr(old_object, change_field)}', '{changes[change_field]}')"
+            for change_field in changes
+        )
+
+        # Create a log entry
+        LogEntry.objects.create(
+            user=self.request.user,
+            content_type_id=ContentType.objects.get_for_model(self.object).pk,
+            object_repr=str(self.object),
+            object_id=self.object.pk,
+            action_flag=CHANGE,
+            change_message=f"Champs modifié(s) [{', '.join(changes_str)}]",
+        )
+
+        return response
 
 
 def assign_local_to_renter(request):
@@ -155,3 +218,19 @@ def assign_local_to_renter(request):
     return Http404()
 
 
+def change_renter(request):
+
+    if request.method == "POST":
+        
+        local = Local.objects.get(pk=request.POST.get("local"))
+
+        if request.POST.get('renter') == "none":
+            local.unasign_tenant()  # unassign local 
+        else: 
+            local.unasign_tenant()
+
+            renter = Renter.objects.get(pk=request.POST.get("renter"))
+            renter.assign_local(local=local)
+
+        return redirect("local:local-details", pk=local.pk)
+    return Http404()

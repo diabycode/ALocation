@@ -38,13 +38,13 @@ class Payment(models.Model):
 
 
 class Renter(models.Model):
-    first_name = models.CharField(max_length=130)
-    last_name = models.CharField(max_length=130)
-    email = models.EmailField(max_length=254, unique=True, blank=True, null=True)
-    phone = models.CharField(max_length=130, unique=True, blank=False, null=True)
-    address = models.CharField(max_length=130, blank=False, null=True)
+    first_name = models.CharField(max_length=130, verbose_name='Prénom')
+    last_name = models.CharField(max_length=13, verbose_name='Nom')
+    email = models.EmailField(max_length=254, unique=True, blank=True, null=True, verbose_name='Email')
+    phone = models.CharField(max_length=130, unique=True, blank=False, null=True, verbose_name='Téléphone')
+    address = models.CharField(max_length=130, blank=False, null=True, verbose_name='Adresse')
 
-    added_at = models.DateTimeField(auto_now_add=True, blank=True, null=True)
+    added_at = models.DateTimeField(auto_now_add=True, blank=True, null=True, verbose_name='Ajouté le')
     # payment_date = models.DateField(null=True)
 
     class Meta:
@@ -100,7 +100,6 @@ class Renter(models.Model):
     @property
     def is_currently_tenant(self):
         return bool(self.local_set.all())
-
 
 
 

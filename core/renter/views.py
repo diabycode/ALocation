@@ -2,6 +2,8 @@ from django.views.generic import ListView, DetailView, DeleteView, CreateView, U
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import redirect
 from django.urls import reverse_lazy, reverse
+from django.contrib.admin.models import LogEntry, CHANGE, ADDITION, DELETION
+from django.contrib.contenttypes.models import ContentType
 
 from .models import Renter
 from local.models import Local
@@ -149,6 +151,20 @@ class RenterDeleteView(DeleteView):
     context_object_name = "renter"
     extra_context = {'now_date': NOW_DATE_STR}
     
+    def form_valid(self, form):
+        response = super().form_valid(form)
+
+        # Create a log entry
+        LogEntry.objects.create(
+            user=self.request.user,
+            content_type_id=ContentType.objects.get_for_model(self.object).pk,
+            object_repr=str(self.object),
+            action_flag=DELETION,
+            change_message=f"Locataire '{self.object.fullname}' supprimé",
+        )
+
+        return response
+    
     def get_success_url(self) -> str:
         return reverse("renter:renters-list")
     
@@ -160,12 +176,58 @@ class RenterCreateView(CreateView):
     success_url = reverse_lazy("renter:renters-list")
     extra_context = {'now_date': NOW_DATE_STR}
 
+    def form_valid(self, form):
+        response = super().form_valid(form)
+
+        # Create an add log entry
+        LogEntry.objects.create(
+            user=self.request.user,
+            content_type_id=ContentType.objects.get_for_model(self.object).pk,
+            object_id=self.object.pk,
+            object_repr=str(self.object),
+            action_flag=ADDITION,
+            change_message=f"Locataire '{self.object.fullname}' ajouté",
+        )
+
+        return response
+
 
 class RenterEditView(UpdateView):
     model = Renter
     form_class = RenterForm
     template_name = "renter/renter-edit.html"
     extra_context = {'now_date': NOW_DATE_STR}
+
+    def get_changed_fields(self, form):
+        changes = {}
+        for field in form.changed_data:
+            changes[field]  = form.cleaned_data[field]
+        
+        return changes
+
+    def form_valid(self, form):
+        old_object = self.get_object()
+
+        response = super().form_valid(form)
+
+        changes = self.get_changed_fields(form)
+        changes_str = (
+            f"[{Renter._meta.get_field(change_field).verbose_name}] : ('{getattr(old_object, change_field)}', '{changes[change_field]}')"
+            for change_field in changes
+        )
+
+
+        # Create a log entry
+        LogEntry.objects.create(
+            user=self.request.user,
+            content_type_id=ContentType.objects.get_for_model(self.object).pk,
+            object_id=self.object.pk,
+            object_repr=str(self.object),
+            action_flag=CHANGE,
+            change_message=f"Champs modifié(s) [{', '.join(changes_str)}]"
+        )
+
+        return response
 
     def get_success_url(self) -> str:
         success_url = reverse("renter:renter-details", kwargs={'pk': (self.get_object()).pk}) 
