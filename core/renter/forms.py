@@ -1,14 +1,18 @@
 from typing import Any
 from django import forms
+from django.db.utils import OperationalError
 
 from renter.models import Renter 
 from local.models import Local
 
 
-unassigned_locals = (
-    (str(local.pk), local.tag_name) for local in Local.objects.all() 
-    if not local.is_currently_rented
-)
+try:
+    unassigned_locals = (
+        (str(local.pk), local.tag_name) for local in Local.objects.all() 
+        if not local.is_currently_rented
+    )
+except OperationalError:
+    unassigned_locals = ()
 
 
 class RenterForm(forms.ModelForm):
