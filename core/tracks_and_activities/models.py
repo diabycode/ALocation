@@ -17,6 +17,7 @@ class Activity(models.Model):
     renter = models.ForeignKey(Renter, on_delete=models.CASCADE)
     local = models.ForeignKey(Local, on_delete=models.CASCADE)
     made_by = models.ForeignKey("auth.User", on_delete=models.CASCADE)
+    work_space = models.ForeignKey("workspace.WorkSpace", on_delete=models.CASCADE, null=True)
 
 
 class Notification(models.Model):
@@ -24,5 +25,6 @@ class Notification(models.Model):
     activity = models.ForeignKey(Activity, on_delete=models.CASCADE)
     seen = models.BooleanField(default=False)
     seen_at = models.DateTimeField(blank=True, null=True)
+    work_space = models.ForeignKey("workspace.WorkSpace", on_delete=models.CASCADE, null=True)
 
     
